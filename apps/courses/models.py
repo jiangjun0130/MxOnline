@@ -25,7 +25,7 @@ class Course(models.Model):
 
 
 class Lesson(models.Model):
-    course = models.ForeignKey("课程", Course)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
     name = models.CharField("章节名称", max_length=100)
     add_time = models.DateTimeField("添加时间", default=datetime.now)
 
@@ -35,7 +35,7 @@ class Lesson(models.Model):
 
 
 class Video(models.Model):
-    lesson = models.ForeignKey("章节", Lesson)
+    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
     name = models.CharField("视频名称", max_length=100)
     add_time = models.DateTimeField("添加时间", default=datetime.now)
 
@@ -45,7 +45,7 @@ class Video(models.Model):
 
 
 class CourseResource(models.Model):
-    course = models.ForeignKey("课程名称", Course)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
     name = models.CharField("名称", max_length=100)
     download = models.FileField("资源文件", upload_to="course/resource/%Y/%m", max_length=100)
     add_time = models.DateTimeField("添加时间", default=datetime.now)

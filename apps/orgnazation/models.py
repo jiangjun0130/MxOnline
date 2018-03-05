@@ -20,7 +20,7 @@ class CourseOrg(models.Model):
     fav_nums = models.IntegerField('收藏数', default=0)
     image = models.ImageField('封面图', upload_to='org/%Y/%m', max_length=100)
     address = models.CharField('机构地址', max_length=150)
-    city = models.ForeignKey('所在城市', CityDict)
+    city = models.ForeignKey(CityDict, on_delete=models.CASCADE)
     add_time = models.DateTimeField(default=datetime.now)
 
     class Meta:
@@ -29,7 +29,7 @@ class CourseOrg(models.Model):
 
 
 class Teacher(models.Model):
-    org = models.ForeignKey('所属机构', CourseOrg)
+    org = models.ForeignKey(CourseOrg, on_delete=models.CASCADE)
     name = models.CharField('教师名称', max_length=50)
     work_years = models.IntegerField('工作年限', default=0)
     work_company = models.CharField('就职公司', max_length=50)
