@@ -5,8 +5,8 @@ from django.contrib.auth.models import AbstractUser
 
 class UserProfile(AbstractUser):
     GENDER_TYPE = (
-        ('M', 'Male'),
-        ('F', 'Female')
+        ('M', '男'),
+        ('F', '女')
     )
     nick_name = models.CharField(verbose_name="user nick name", max_length=50,default="")
     birthday = models.DateField(verbose_name="birthday", null=True, blank=True)
