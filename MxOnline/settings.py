@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'operation',
     'orgnazation',
     'xadmin',
-    'crispy_forms'
+    'crispy_forms',
+    'reversion',
 ]
 
 AUTH_USER_MODEL = "users.UserProfile"
