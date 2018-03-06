@@ -28,22 +28,25 @@ class EmailVerifyRecord(models.Model):
         ('R', 'register'),
         ('F', 'forget')
     )
-    code = models.CharField('vertify code', max_length=20)
-    email = models.EmailField('email address', max_length=50)
-    send_type = models.CharField("send email type", choices=SEND_EMAIL_TYPE, max_length=1)
-    send_time = models.DateTimeField("send email time", default=datetime.now)
+    code = models.CharField('验证码', max_length=20)
+    email = models.EmailField('邮箱', max_length=50)
+    send_type = models.CharField("发送类型", choices=SEND_EMAIL_TYPE, max_length=1)
+    send_time = models.DateTimeField("发送时间", default=datetime.now)
 
     class Meta:
-        verbose_name = "email vetify code"
+        verbose_name = "邮箱验证码"
         verbose_name_plural = verbose_name
 
+    def __unicode__(self):
+        return '{0}({1})'.format(self.code, self.email)
+
 class Banner(models.Model):
-    title = models.CharField("title", max_length=100)
-    image = models.ImageField("image", upload_to="banner/%Y/%m", max_length=100)
-    url = models.URLField("image url", max_length=200)
-    index = models.IntegerField("image show index", default=100)
-    add_time = models.DateTimeField('image add time', default=datetime.now)
+    title = models.CharField("标题", max_length=100)
+    image = models.ImageField("轮播图", upload_to="banner/%Y/%m", max_length=100)
+    url = models.URLField("图片路径", max_length=200)
+    index = models.IntegerField("顺序", default=100)
+    add_time = models.DateTimeField('添加时间', default=datetime.now)
 
     class Meta:
-        verbose_name = "idnex page page banner"
+        verbose_name = "轮播图"
         verbose_name_plural = verbose_name
