@@ -3,6 +3,7 @@ from datetime import datetime
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
+
 class UserProfile(AbstractUser):
     GENDER_TYPE = (
         ('M', '男'),
@@ -39,6 +40,7 @@ class EmailVerifyRecord(models.Model):
 
     def __unicode__(self):
         return '{0}({1})'.format(self.code, self.email)
+
 
 class Banner(models.Model):
     title = models.CharField("标题", max_length=100)
