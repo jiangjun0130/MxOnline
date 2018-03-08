@@ -52,3 +52,13 @@ class Banner(models.Model):
     class Meta:
         verbose_name = "轮播图"
         verbose_name_plural = verbose_name
+
+
+class TestBug(models.Model):
+    name = models.CharField('姓名', max_length=100)
+    age = models.IntegerField('年龄')
+    desc = models.CharField('描述', max_length=100)
+
+    class Meta:
+        verbose_name = "测试Bug"
+        verbose_name_plural = verbose_name

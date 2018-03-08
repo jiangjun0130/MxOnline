@@ -4,7 +4,7 @@ __date__ = '2018/3/6 下午11:13'
 
 import xadmin
 
-from .models import EmailVerifyRecord, Banner
+from .models import EmailVerifyRecord, Banner, TestBug
 
 
 class EmailVerifyRecordAdmin(object):
@@ -23,3 +23,11 @@ class BannerAdmin(object):
 
 
 xadmin.site.register(Banner, BannerAdmin)
+
+
+class TestBugAdmin(object):
+    list_display = ['name']
+    search_fields = ['name']
+    list_filter = ['name']
+
+xadmin.site.register(TestBug, TestBugAdmin)
