@@ -16,6 +16,9 @@ class UserAsk(models.Model):
         verbose_name = '用户咨询'
         verbose_name_plural = verbose_name
 
+    def __str__(self):
+        return self.name
+
 
 class CourseComments(models.Model):
     """
@@ -56,6 +59,7 @@ class UserMessage(models.Model):
     class Meta:
         verbose_name = '用户消息'
         verbose_name_plural = verbose_name
+
 
 class UserCourse(models.Model):
     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)

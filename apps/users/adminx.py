@@ -3,8 +3,26 @@ __author__ = 'jiangjun'
 __date__ = '2018/3/6 下午11:13'
 
 import xadmin
+from xadmin import views
 
 from .models import EmailVerifyRecord, Banner, TestBug
+
+
+class BaseSetting(object):
+    enable_themes = True
+    use_bootswatch = True
+
+
+xadmin.site.register(views.BaseAdminView, BaseSetting)
+
+
+class GlobalSettings(object):
+    site_title = '慕学后台管理系统'
+    site_footer = '慕学在线网'
+    menu_style = 'accordion'
+
+
+xadmin.site.register(views.CommAdminView, GlobalSettings)
 
 
 class EmailVerifyRecordAdmin(object):
