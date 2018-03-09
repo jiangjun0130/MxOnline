@@ -657,7 +657,7 @@ function addrInput(i) {
     }
     if (nameValue == 'template.sdeptProCity')
     {
-        $("input[name='template.sdeptProCity']").trigger("change", [cityId, countyId]);
+        $("input[name='templates.sdeptProCity']").trigger("change", [cityId, countyId]);
     }
 }
 function hotCityAddrInput(proCityId) {
@@ -1039,7 +1039,7 @@ function addrInputAll(i) {
     }
     if (nameValue == 'template.caddrProCity')
     {
-        $("input[name='template.caddrProCity']").trigger("change");
+        $("input[name='templates.caddrProCity']").trigger("change");
     }
 }
 
