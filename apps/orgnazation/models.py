@@ -6,7 +6,7 @@ from django.db import models
 class CityDict(models.Model):
     name = models.CharField('城市名称', max_length=20)
     desc = models.CharField('城市描述', max_length=200)
-    add_time = models.DateTimeField(default=datetime.now)
+    add_time = models.DateTimeField(default=datetime.now, verbose_name='添加时间')
 
     class Meta:
         verbose_name = '城市'
