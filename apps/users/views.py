@@ -5,7 +5,7 @@ from django.db.models import Q
 from django.views.generic.base import View
 
 from .models import UserProfile
-from .forms import LoginForm
+from .forms import LoginForm, RegisterForm
 
 
 class CustomBackend(ModelBackend):
@@ -37,3 +37,8 @@ class LoginView(View):
         else:
             return render(request, 'login.html', {'login_form': login_form})
 
+
+class RegisterView(View):
+    def get(self, request):
+        register_form = RegisterForm()
+        return render(request, 'register.html', {'register_form': register_form})
