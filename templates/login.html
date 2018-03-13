@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-
+{% load staticfiles %}
 <head>
 	<meta charset="UTF-8">
     <meta name="renderer" content="webkit">
@@ -87,7 +87,7 @@
 
                      <div class="auto-box marb38">
 {#                        <label><input type="checkbox" id="jsAutoLogin"> 自动登录</label>#}
-                        {% comment %}<a class="fr" href="{% url 'forget_pwd' %}">忘记密码？</a>{% endcomment %}
+                        <a class="fr" href="{% url 'forget_pwd' %}">忘记密码？</a>
                      </div>
                      <input class="btn btn-green" id="jsLoginBtn" type="submit" value="立即登录 > " />
                 {% csrf_token %}

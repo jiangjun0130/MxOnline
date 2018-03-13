@@ -24,7 +24,8 @@ def send_register_email(email, send_type='R'):
         email_title = '慕学在线网注册激活邮件'
         email_body = '请点击下方链接进行激活账号：http://127.0.0.1:8000/activate/{0}'.format(code)
     elif send_type == 'F':
-        pass
+        email_title = '慕学在线网密码重置邮件'
+        email_body = '请点击下方链接进行密码重置：http://127.0.0.1:8000/reset/{0}'.format(code)
     send_status = send_mail(subject=email_title, message=email_body, from_email=EMAIL_FROM, recipient_list=[email])
     if send_status:
         pass
