@@ -18,6 +18,7 @@ from django.views.generic import TemplateView
 import xadmin
 
 from users.views import LoginView, RegisterView, ActivateUserView, ForgetPwdView, ResetView, ModifyPwdView
+from orgnazation.views import OrgView
 
 
 urlpatterns = [
@@ -31,4 +32,6 @@ urlpatterns = [
     re_path('reset/(?P<activate_code>.*)?$', ResetView.as_view(), name="reset"),
     path('modify_pwd/', ModifyPwdView.as_view(), name='modify_pwd'),
 
+    # 课程机构首页
+    path('org_list/', OrgView.as_view(), name='org_list'),
 ]
