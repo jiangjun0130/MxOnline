@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'reversion',
     'captcha',
+    'pure_pagination',
 ]
 
 AUTH_USER_MODEL = "users.UserProfile"
