@@ -51,6 +51,7 @@ class Teacher(models.Model):
     points = models.CharField('教学特点', max_length=50)
     click_nums = models.IntegerField('点击数', default=0)
     fav_nums = models.IntegerField('收藏数', default=0)
+    image = models.ImageField("讲师头像", upload_to="teacher/%Y/%m", max_length=100, default='')
     add_time = models.DateTimeField(default=datetime.now)
 
     class Meta:

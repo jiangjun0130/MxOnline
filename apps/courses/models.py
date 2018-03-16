@@ -1,6 +1,8 @@
 from datetime import  datetime
 from django.db import models
 
+from orgnazation.models import CourseOrg
+
 
 class Course(models.Model):
     DEGREE_TYPE = (
@@ -8,6 +10,7 @@ class Course(models.Model):
         ('zj', '中级'),
         ('gj', '高级')
     )
+    course_org = models.ForeignKey(CourseOrg, on_delete=models.CASCADE, verbose_name='课程机构', null=True, blank=True)
     name = models.CharField("课程名称", max_length=100)
     desc = models.CharField("课程描述", max_length=300)
     detail = models.TextField("课程详情")
