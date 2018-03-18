@@ -20,6 +20,7 @@ class Course(models.Model):
     fav_nums = models.IntegerField("收藏人数", default=0)
     image = models.ImageField("封面图", upload_to="course/%Y/%m", max_length=100)
     click_nums = models.IntegerField("点击数", default=0)
+    category = models.CharField("课程类别", max_length=20, default='后端开发')
     add_time = models.DateTimeField("添加时间", default=datetime.now)
 
     class Meta:
@@ -28,6 +29,14 @@ class Course(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_zj_nums(self):
+        # 获取课程章节数
+        return self.lesson_set.all().count()
+
+    def get_learn_users(self):
+        learn_users = self.usercourse_set.all()[:5]
+        return learn_users
 
 
 class Lesson(models.Model):
