@@ -1,7 +1,7 @@
 from datetime import  datetime
 from django.db import models
 
-from orgnazation.models import CourseOrg
+from orgnazation.models import CourseOrg, Teacher
 
 
 class Course(models.Model):
@@ -21,6 +21,10 @@ class Course(models.Model):
     image = models.ImageField("封面图", upload_to="course/%Y/%m", max_length=100)
     click_nums = models.IntegerField("点击数", default=0)
     category = models.CharField("课程类别", max_length=20, default='后端开发')
+    tag = models.CharField("课程标签", default="", max_length=10)
+    teacher = models.ForeignKey(Teacher, verbose_name='讲师', null=True, blank=True, on_delete=models.CASCADE)
+    need_known = models.CharField('课程须知', max_length=100, default='')
+    teacher_tells = models.CharField('能学到什么', max_length=100, default='')
     add_time = models.DateTimeField("添加时间", default=datetime.now)
 
     class Meta:
@@ -38,6 +42,13 @@ class Course(models.Model):
         learn_users = self.usercourse_set.all()[:5]
         return learn_users
 
+    def get_course_lesson(self):
+        """
+        获取课程所有章节
+        :return:
+        """
+        return self.lesson_set.all()
+
 
 class Lesson(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
@@ -51,10 +62,16 @@ class Lesson(models.Model):
     def __str__(self):
         return self.name
 
+    def get_lesson_video(self):
+        # 获取章节视频
+        return self.video_set.all()
+
 
 class Video(models.Model):
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
     name = models.CharField("视频名称", max_length=100)
+    url = models.CharField('视频地址', max_length=100, default='')
+    learn_times = models.IntegerField("学习时长（分钟）", default=0)
     add_time = models.DateTimeField("添加时间", default=datetime.now)
 
     class Meta:

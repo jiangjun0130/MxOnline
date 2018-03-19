@@ -26,7 +26,11 @@ class Migration(migrations.Migration):
                 ('fav_nums', models.IntegerField(default=0, verbose_name='收藏人数')),
                 ('image', models.ImageField(upload_to='course/%Y/%m', verbose_name='封面图')),
                 ('click_nums', models.IntegerField(default=0, verbose_name='点击数')),
+                ('need_known', models.CharField(default='', verbose_name='课程须知', max_length=100)),
+                ('tag', models.CharField(default='', verbose_name='课程标签', max_length=20)),
                 ('add_time', models.DateTimeField(default=datetime.datetime.now, verbose_name='添加时间')),
+                ('category', models.CharField(default='后端开发', verbose_name='课程类别', max_length=20)),
+                ('course_org', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='orgnazation.CourseOrg', blank=True, null=True, )),
             ],
             options={
                 'verbose_name': '课程',
