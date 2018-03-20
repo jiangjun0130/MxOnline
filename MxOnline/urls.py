@@ -39,6 +39,8 @@ urlpatterns = [
     # 课程机构配置
     path('org/', include('orgnazation.urls', namespace='org')),
     # 课程相关配置
-    path('course/', include('courses.urls', namespace='course'))
+    path('course/', include('courses.urls', namespace='course')),
+    # 用户中心相关配置
+    path('user/', include('users.urls', namespace='user')),
 
 ]

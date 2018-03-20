@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views.generic.base import View
 from django.http import HttpResponse
+from django.db.models import Q
 
 from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
 
@@ -25,6 +26,11 @@ class OrgView(View):
         city_id = request.GET.get('city', '')
         if city_id:
             all_orgs = all_orgs.filter(city_id=int(city_id))
+
+        # 机构搜索
+        search_keywords = request.GET.get('keywords', '')
+        if search_keywords:
+            all_orgs = all_orgs.filter(Q(name__icontains=search_keywords) | Q(desc__contains=search_keywords))
 
         # 筛选类别
         category = request.GET.get('ct', '')
@@ -89,7 +95,7 @@ class OrgHomeView(View):
         course_org = CourseOrg.objects.get(id=int(org_id))
 
         has_fav = False
-        if request.user.is_authenticated():
+        if request.user.is_authenticated:
             if UserFavorite.objects.filter(user=request.user, fav_id=course_org.id, fav_type=2):
                 has_fav = True
 
@@ -174,6 +180,12 @@ class AddFavView(View):
 class TeacherListView(View):
     def get(self, request):
         all_teachers = Teacher.objects.all()
+
+        # 机构搜索
+        search_keywords = request.GET.get('keywords', '')
+        if search_keywords:
+            all_teachers = all_teachers.filter(Q(name__icontains=search_keywords) | Q(work_company__icontains=search_keywords)
+                                               | Q(work_position__icontains=search_keywords))
 
         sort = request.GET.get('sort', '')
         if sort:
