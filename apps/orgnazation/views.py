@@ -4,8 +4,7 @@ from django.http import HttpResponse
 
 from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
 
-
-from .models import CourseOrg, CityDict
+from .models import CourseOrg, CityDict, Teacher
 
 from .forms import UserAskForm
 from courses.models import Course
@@ -16,6 +15,7 @@ class OrgView(View):
     """
         课程机构列表
     """
+
     def get(self, request):
         # 机构
         all_orgs = CourseOrg.objects.all()
@@ -38,13 +38,11 @@ class OrgView(View):
             elif sort == 'courses':
                 all_orgs = all_orgs.filter('-course_nums')
 
-
         # 课程机构分页
         try:
             page = request.GET.get('page', 1)
         except PageNotAnInteger:
             page = 1
-
 
         # Provide Paginator with the request object for complete querystring generation
 
@@ -70,6 +68,7 @@ class AddUserAskView(View):
     """
         用户添加咨询
     """
+
     def post(self, request):
         user_ask_form = UserAskForm(request.POST)
         if user_ask_form.is_valid():
@@ -84,6 +83,7 @@ class OrgHomeView(View):
     """
     机构首页
     """
+
     def get(self, request, org_id):
         current_page = 'home'
         course_org = CourseOrg.objects.get(id=int(org_id))
@@ -108,6 +108,7 @@ class OrgCourseView(View):
     """
     机构课程列表页
     """
+
     def get(self, request, org_id):
         current_page = 'courses'
         course_org = CourseOrg.objects.get(id=int(org_id))
@@ -145,6 +146,7 @@ class AddFavView(View):
     """
     用户收藏，取消收藏
     """
+
     def post(self, request):
         fav_id = request.POST.get('fav_id', 0)
         fav_type = request.POST.get('fav_type', 0)
@@ -167,3 +169,58 @@ class AddFavView(View):
                 return HttpResponse('{"status":"success", "msg": "收藏成功！"}', content_type='application/json')
             else:
                 return HttpResponse('{"status":"fail", "msg": "收藏出错！"}', content_type='application/json')
+
+
+class TeacherListView(View):
+    def get(self, request):
+        all_teachers = Teacher.objects.all()
+
+        sort = request.GET.get('sort', '')
+        if sort:
+            if sort == 'hot':
+                all_teachers = all_teachers.filter('-click_nums')
+
+        sorted_teachers = Teacher.objects.all().order_by('-click_nums')[:3]
+
+        # 课程机构分页
+        try:
+            page = request.GET.get('page', 1)
+        except PageNotAnInteger:
+            page = 1
+
+            # Provide Paginator with the request object for complete querystring generation
+
+        paginator = Paginator(all_teachers, 1, request=request)
+
+        paged_teachers = paginator.page(page)
+        return render(request, 'teachers-list.html', {
+            'all_teachers': all_teachers,
+            'paged_teachers': paged_teachers,
+            'sorted_teachers': sorted_teachers
+        })
+
+
+class TeacherDetailView(View):
+    def get(self, request, teacher_id):
+        teacher = Teacher.objects.get(id=int(teacher_id))
+        teacher.click_nums += 1
+        teacher.save()
+        teacher_courses = Course.objects.filter(teacher=teacher)
+
+        has_teacher_faved = False
+        if UserFavorite.objects.filter(user=request.user, fav_type=3, fav_id=teacher.id):
+            has_teacher_faved = True
+
+        has_org_faved = False
+        if UserFavorite.objects.filter(user=request.user, fav_type=2, fav_id=teacher.org.id):
+            has_org_faved = True
+
+        sorted_teachers = Teacher.objects.all().order_by('-click_nums')[:3]
+
+        return render(request, 'teacher-detail.html', {
+            'teacher': teacher,
+            'teacher_courses': teacher_courses,
+            'sorted_teachers': sorted_teachers,
+            'has_teacher_faved': has_teacher_faved,
+            'has_org_faved': has_org_faved
+        })
