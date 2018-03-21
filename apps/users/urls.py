@@ -4,12 +4,12 @@ __date__ = '2018/3/16 9:42 '
 
 from django.urls import path, re_path
 
-from .views import UserInfoView
+from .views import UserInfoView, UploadImageView
 
 
 app_name = 'user'
 urlpatterns = [
     # 用户信息
     path('info/', UserInfoView.as_view(), name='user_info'),
-
+    path('image_upload/', UploadImageView.as_view(), name='image_upload')
 ]
