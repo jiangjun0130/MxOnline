@@ -27,7 +27,8 @@ class UserProfile(AbstractUser):
 class EmailVerifyRecord(models.Model):
     SEND_EMAIL_TYPE = (
         ('R', 'register'),
-        ('F', 'forget')
+        ('F', 'forget'),
+        ('U', 'update'),
     )
     code = models.CharField('验证码', max_length=20)
     email = models.EmailField('邮箱', max_length=50)
