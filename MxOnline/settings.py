@@ -26,9 +26,10 @@ sys.path.insert(0, os.path.join(BASE_DIR, 'extra_apps'))
 SECRET_KEY = '*-a*sx=625z88p52^twbw510grvi#7oa2%9a8wclzz!)2r2q&a'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+#DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -157,6 +158,8 @@ EMAIL_FROM = '15087180905@sina.cn'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 
 

@@ -14,6 +14,7 @@ class Course(models.Model):
     name = models.CharField("课程名称", max_length=100)
     desc = models.CharField("课程描述", max_length=300)
     detail = models.TextField("课程详情")
+    is_banner = models.BooleanField('是否是轮播图', default=False)
     degree = models.CharField("课程难度", choices=DEGREE_TYPE, max_length=2)
     learn_times = models.IntegerField("学习时长（分钟）", default=0)
     students = models.IntegerField("学习人数", default=0)
